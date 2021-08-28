@@ -15,6 +15,8 @@ public class Button_Pages {
 	
 	@FindBy(how = How.CSS, using = "#menu_pim_addEmployee")
 	private WebElement btnAddEmpoloyee;
+	@FindBy(how = How.ID, using = "btnSave")
+	private WebElement btnSave;
 	
 	
 	
@@ -45,4 +47,10 @@ public class Button_Pages {
 		questions.screenShot(driver);
 		
 	}
-}
+	public void btnSave(WebDriver driver){
+		btnSave.isDisplayed();
+		btnSave.click();
+		
+	}
+	}
+

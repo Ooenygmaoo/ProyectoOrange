@@ -42,7 +42,8 @@ public class DefinitionsSteps {
 public void diligenciarCampos(String firstname,String lastname ) {
 	this.pimPage.darclicAddEmployee(driver);
 	this.pimPage.agregarEmployee(driver,firstname,lastname);
-}
+	driver.quit();
+	}
 
 
 }
