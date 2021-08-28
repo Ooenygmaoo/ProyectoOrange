@@ -40,5 +40,6 @@ public class PimPages {
 		txtFirstName.sendKeys(firstname);
 		txtLastName.sendKeys(lastname);
 		questions.screenShot(driver);
+		buttonPages.btnSave(driver);
 	}
 }
