@@ -16,22 +16,16 @@ jobs:
       - name: Checkout del código
         uses: actions/checkout@v2
 
-      - name: Cambiar al directorio del proyecto
-        run: cd ProyectoOrange
-
       - name: Instalar dependencias
         run: mvn install
 
   run_tests:
     runs-on: ubuntu-latest
-    if: ${{ github.repository.startsWith('bbog') && github.repository.endsWith('-testing') }}
     needs: install_dependencies
+    if: ${{ startsWith(github.repository, 'bbog') && endsWith(github.repository, '-testing') }}
     steps:
       - name: Checkout del código
         uses: actions/checkout@v2
-
-      - name: Cambiar al directorio del proyecto
-        run: cd ProyectoOrange
 
       - name: Ejecutar pruebas
         run: mvn test
