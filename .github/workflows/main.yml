@@ -1,0 +1,38 @@
+name: Ejecutar Pipeline Manualmente
+
+on:
+  workflow_dispatch:
+    inputs:
+      lenguaje:
+        description: "Define el lenguaje de programación que se usa"
+        required: true
+        default: "java"
+
+jobs:
+  install_dependencies:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.lenguaje == 'java' }}
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v2
+
+      - name: Cambiar al directorio del proyecto
+        run: cd ProyectoOrange
+
+      - name: Instalar dependencias
+        run: mvn install
+
+  run_tests:
+    runs-on: ubuntu-latest
+    if: ${{ github.repository.startsWith('bbog') && github.repository.endsWith('-testing') }}
+    needs: install_dependencies
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v2
+
+      - name: Cambiar al directorio del proyecto
+        run: cd ProyectoOrange
+
+      - name: Ejecutar pruebas
+        run: mvn test
+        continue-on-error: true
