@@ -1,0 +1,27 @@
+name: Pipeline Manual
+
+on:
+  workflow_dispatch:
+    inputs:
+      lenguaje:
+        required: true
+        default: 'java'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Instalar java
+        if: ${{ github.event.inputs.lenguaje == 'java' }}
+        run: mvn install
+
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Ejecutar pruebas
+        if: ${{ startsWith(github.event.repository.name, 'bbog') && endsWith(github.event.repository.name, '-testing') }}
+        run: mvn test
+        continue-on-error: true
+
